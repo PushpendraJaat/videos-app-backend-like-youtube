@@ -3,6 +3,8 @@ import {ApiError} from "../utils/ApiError.js"
 import {User} from "../models/user.model.js"
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
+import jwt from "jsonwebtoken"
+import { application } from "express"
 
 const generateAccessAndRefressTokens = async function (userId){
     try {
@@ -179,8 +181,53 @@ const logoutUser = asyncHandler( async (req, res) => {
 
 })
 
+const refressAccessToken = asyncHandler(async (req, res) =>{
+    const incomingRefressToken = req.cookies.refressToken || req.body.refressToken
+
+    if(!incomingRefressToken){
+        throw new ApiError(401, "Unauthorized request !!!")
+    }
+
+    try {
+        const decodedRefressToken = jwt.verify(incomingRefressToken, process.env.REFRESS_TOKEN_SECRET)
+    
+        const user = await User.findById(decodedRefressToken?._id)
+    
+        
+        if(!user){
+            throw new ApiError(401, "Invalid Refress Token !!!")
+        }
+    
+        if(incomingRefressToken !== user?.refressToken){
+                throw new ApiError(401, "Refress Token is expired or used !!!")
+        }
+        
+        const options = {
+            httpOnly: true,
+            secure: true
+        }
+    
+        const {accessToken, newrefressToken} = await generateAccessAndRefressTokens(user._id)
+    
+        return res
+        .status(200)
+        .cookie("accessToken", accessToken, options)
+        .cookie("refressToken", newrefressToken, options)
+        .json(
+            new ApiResponse(
+                200,
+                {accessToken, newrefressToken},
+                "Access Token refressed."
+            )
+        )
+    } catch (error) {
+        throw new ApiError(401, error?.message || "Invalid Refress Token!!!!!!")
+    }
+})
+
 export {
     registerUser,
     loginUser,
-    logoutUser
+    logoutUser,
+    refressAccessToken
 }
