@@ -4,7 +4,6 @@ import {User} from "../models/user.model.js"
 import {uploadOnCloudinary} from "../utils/cloudinary.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
 import jwt from "jsonwebtoken"
-import { application } from "express"
 
 const generateAccessAndRefressTokens = async function (userId){
     try {
@@ -21,7 +20,6 @@ const generateAccessAndRefressTokens = async function (userId){
         throw new ApiError(500, "Something went wrong while generating refress and access token !!")
     }
 }
-
 
 const registerUser = asyncHandler( async (req, res) => {
     //steps for user register
@@ -95,7 +93,6 @@ const registerUser = asyncHandler( async (req, res) => {
    )
     
 })
-
 
 //get user data from frontend
 //validate data
