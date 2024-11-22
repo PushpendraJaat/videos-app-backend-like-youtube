@@ -1,23 +1,28 @@
-import { asyncHandler } from "../utils/asyncHandler.js"
-import { ApiError } from "../utils/ApiError.js"
-import { ApiResponse } from "../utils/ApiResponse.js"
-import { uploadOnCloudinary } from "../utils/cloudinary.js"
-import jwt from "jsonwebtoken"
-import mongoose from "mongoose"
+import mongoose, {isValidObjectId} from "mongoose"
+import {User} from "../models/user.model.js"
 import { Subscription } from "../models/subscription.model.js"
+import {ApiError} from "../utils/ApiError.js"
+import {ApiResponse} from "../utils/ApiResponse.js"
+import {asyncHandler} from "../utils/asyncHandler.js"
 
-const subscribing = asyncHandler( async(req, res) => {
-    //logged in userid
-    //subscribingto channel username or id
-    //save in logged in user subscribed list
-    // save in channel subscrition list
-    const loggedInUserId = req.user._id
-    await Subscription.findByIdAndUpdate(loggedInUserId,
-        {
-            $set: {
-                channel: 
-            }
-        }
-    )
 
+const toggleSubscription = asyncHandler(async (req, res) => {
+    const {channelId} = req.params
+    // TODO: toggle subscription
 })
+
+// controller to return subscriber list of a channel
+const getUserChannelSubscribers = asyncHandler(async (req, res) => {
+    const {channelId} = req.params
+})
+
+// controller to return channel list to which user has subscribed
+const getSubscribedChannels = asyncHandler(async (req, res) => {
+    const { subscriberId } = req.params
+})
+
+export {
+    toggleSubscription,
+    getUserChannelSubscribers,
+    getSubscribedChannels
+}
