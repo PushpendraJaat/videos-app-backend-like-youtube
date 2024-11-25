@@ -1,10 +1,11 @@
 import {asyncHandler} from "../utils/asyncHandler.js"
 import {ApiError} from "../utils/ApiError.js"
 import {User} from "../models/user.model.js"
-import {uploadOnCloudinary} from "../utils/cloudinary.js"
+import {uploadOnCloudinary, deleteFromCloudinary, extractCloudinaryFileId} from "../utils/cloudinary.js"
 import {ApiResponse} from "../utils/ApiResponse.js"
 import jwt from "jsonwebtoken"
 import mongoose from "mongoose"
+import e from "cors"
 
 const generateAccessAndRefressTokens = async function (userId){
     try {
@@ -282,6 +283,9 @@ const updateUserAvatar = asyncHandler( async(req, res) => {
         throw new ApiError(400, "Error while uploading avatar")
     }
 
+    const oldAvatar = req.user?.avatar;
+    const oldAvatarFileId = extractCloudinaryFileId(oldAvatar)
+
     const user = await User.findByIdAndUpdate(req.user?._id,
     {
         $set: {
@@ -290,6 +294,12 @@ const updateUserAvatar = asyncHandler( async(req, res) => {
     },
     {new: true}
 ).select("-password")
+
+const delAvatarCloud = await deleteFromCloudinary(oldAvatarFileId);
+
+if (!delAvatarCloud || delAvatarCloud.result !== "ok") {
+    return res.status(500).json(new ApiError(500, "Error while deleting Avatar from Cloudinary"));
+}
 
 return res
 .status(200)
