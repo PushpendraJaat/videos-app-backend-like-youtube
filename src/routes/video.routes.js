@@ -28,7 +28,7 @@ router.route("/deleteVideo/:videoId").delete(verifyJWT, deleteVideo)
 router.route("/videopublishtoggle/:videoId").get(verifyJWT, togglePublishStatus)
 
 //video comments
-router.route("/comment/:videoId").post(verifyJWT, addComment)
+router.route("/:videoId/comments").post(verifyJWT, addComment)
 
 
 
