@@ -1,10 +1,10 @@
-#Backend Project
+# Backend Project
 
 This backend project is built using Node.js, Express.js, and Mongoose, with MongoDB Atlas as the database service. The project adheres to modern industry standards to ensure scalability, maintainability, and best practices. Postman is utilized for API testing throughout the development process.
 
-#Key Features:
+# Key Features:
 
-#File Handling:
+## File Handling:
 
 Utilizes Multer middleware for efficient file upload handling.
 
@@ -12,35 +12,35 @@ Authentication and Authorization:
 
 Employs refresh and access tokens for secure user authorization and session management.
 
-#Security:
+## Security:
 
 Passwords are encrypted using bcrypt to safeguard user credentials, minimizing risks in the event of data leaks.
 
-#Cloud Storage:
+## Cloud Storage:
 
 Integrates Cloudinary to store images and video files securely. Cloudinary provides easily manageable URLs for server-side storage and retrieval.
 
-#Cookie Management:
+## Cookie Management:
 
 Incorporates cookie-parser to set and clear cookies as needed for session handling and user experience optimization.
 
-#CORS Handling:
+## CORS Handling:
 
 Configures CORS (Cross-Origin Resource Sharing) to define and secure allowed origins for API access.
 
-#Core Functionalities:
+# Core Functionalities:
 
 The project replicates core YouTube functionalities, offering the following features:
 
-#User Management:
+## User Management:
 
 Sign Up, Login, Logout
 
-#Password Management: 
+## Password Management: 
 
 Change Password, Password Encryption
 
-#Update User Details: 
+## Update User Details: 
 
 Name, Email, Password, Profile Image, Cover Image
 
@@ -50,7 +50,7 @@ Fetch User Watch History
 
 Refresh Access Token
 
-#Video Management:
+## Video Management:
 
 Upload Video, Delete Video, Update Video Details
 
@@ -60,7 +60,7 @@ Toggle Video Visibility: Publish/Private
 
 Fetch Video Details
 
-#Interaction:
+## Interaction:
 
 Watch and interact with videos uploaded by other users
 
@@ -68,13 +68,13 @@ Comment on Videos
 
 Like Videos and Comments
 
-#Playlist Management:
+## Playlist Management:
 
 Create, Update, and Delete Playlists
 
 Add and Remove Videos from Playlists
 
-#Channel Management:
+## Channel Management:
 
 Subscribe to Channels
 
@@ -82,7 +82,7 @@ View Subscription List
 
 View Subscribers List
 
-#Miscellaneous:
+## Miscellaneous:
 
 Fetch User Liked Videos
 
@@ -92,7 +92,7 @@ Create, Update, Delete Tweets
 
 Like Tweets
 
-#Technologies Used:
+## Technologies Used:
 
 Node.js for server-side JavaScript execution
 
@@ -112,38 +112,44 @@ cookie-parser for cookie management
 
 CORS for secure cross-origin API requests
 
-#How to Run the Project:
+## How to Run the Project:
 
 Clone the Repository:
 
-git clone https://github.com/PushpendraJaat/videos-app-backend-like-youtube.git
+[git clone](https://github.com/PushpendraJaat/videos-app-backend-like-youtube.git)
 
 Navigate to the Project Directory:
 
 cd videos-app-backend-like-youtube
 
-#Install Dependencies:
+## Install Dependencies:
 
+```bash
 npm install
+```
 
-#Set Up Environment Variables:
+## Set Up Environment Variables:
 
 Create a .env file in the root directory.
 
 Add the following variables:
 
+```bash
 MONGO_URI=<your_mongo_db_uri>
 CLOUDINARY_NAME=<your_cloudinary_name>
 CLOUDINARY_API_KEY=<your_cloudinary_api_key>
 CLOUDINARY_API_SECRET=<your_cloudinary_api_secret>
 JWT_SECRET=<your_jwt_secret>
 PORT=<your_preferred_port>
+```
 
-#Run the Project:
+## Run the Project:
 
+```bash
 npm start
+```
 
-#API Testing:
+## API Testing:
 
 Use Postman or any API testing tool to interact with the endpoints.
 
