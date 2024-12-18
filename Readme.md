@@ -8,7 +8,7 @@ This backend project is built using Node.js, Express.js, and Mongoose, with Mong
 
 Utilizes Multer middleware for efficient file upload handling.
 
-Authentication and Authorization:
+## Authentication and Authorization:
 
 Employs refresh and access tokens for secure user authorization and session management.
 
@@ -139,8 +139,12 @@ MONGO_URI=<your_mongo_db_uri>
 CLOUDINARY_NAME=<your_cloudinary_name>
 CLOUDINARY_API_KEY=<your_cloudinary_api_key>
 CLOUDINARY_API_SECRET=<your_cloudinary_api_secret>
-JWT_SECRET=<your_jwt_secret>
 PORT=<your_preferred_port>
+CORS_ORIGIN=<your-origin domain>
+ACCESS_TOKEN_SECRET=<your access token>
+ACCESS_TOKEN_EXPIRY=<access token expiry time>
+REFRESS_TOKEN_SECRET=<your refresh token>
+REFRESS_TOKEN_EXPIRY=<your refresh token expiry time>
 ```
 
 ## Run the Project:
