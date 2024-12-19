@@ -120,7 +120,9 @@ Clone the Repository:
 
 Navigate to the Project Directory:
 
+```bash
 cd videos-app-backend-like-youtube
+```
 
 ## Install Dependencies:
 
@@ -140,11 +142,11 @@ CLOUDINARY_NAME=<your_cloudinary_name>
 CLOUDINARY_API_KEY=<your_cloudinary_api_key>
 CLOUDINARY_API_SECRET=<your_cloudinary_api_secret>
 PORT=<your_preferred_port>
-CORS_ORIGIN=<your-origin domain>
-ACCESS_TOKEN_SECRET=<your access token>
-ACCESS_TOKEN_EXPIRY=<access token expiry time>
-REFRESS_TOKEN_SECRET=<your refresh token>
-REFRESS_TOKEN_EXPIRY=<your refresh token expiry time>
+CORS_ORIGIN=<your_origin_domain>
+ACCESS_TOKEN_SECRET=<your_access_token>
+ACCESS_TOKEN_EXPIRY=<access_token_expiry_time>
+REFRESS_TOKEN_SECRET=<your_refresh_token>
+REFRESS_TOKEN_EXPIRY=<your_refresh_token_expiry_time>
 ```
 
 ## Run the Project:
