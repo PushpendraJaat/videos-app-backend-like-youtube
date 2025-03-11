@@ -22,7 +22,9 @@ const getAllVideos = asyncHandler(async (req, res) => {
         .limit(parseInt(limit));
 
     if (videos.length === 0) {
-        throw new ApiError(404, "No Videos found")
+        return res
+        .status(200)
+        .json(new ApiResponse(200, {totalVideos, videos}, "Videos fetched successfully"))
     }
 
     return res
