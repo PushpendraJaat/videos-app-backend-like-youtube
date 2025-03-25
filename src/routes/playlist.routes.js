@@ -5,10 +5,10 @@ import { createPlaylist, getUserPlaylists, getPlaylistById, addVideoToPlaylist, 
 const router = Router()
 
 //public routes
-router.route("/user-playlist/:userId").get(getUserPlaylists)
 router.route("/get-playlist/:playlistId").get(getPlaylistById)
 
 //secure routes
+router.route("/user-playlist").get(verifyJWT ,getUserPlaylists)
 router.route("/new-playlist").post(verifyJWT, createPlaylist)
 router.route("/add-video-to-playlist/:playlistId/:videoId").patch(verifyJWT, addVideoToPlaylist)
 router.route("/remove-video-from-playlist/:playlistId/:videoId").patch(verifyJWT, removeVideoFromPlaylist)

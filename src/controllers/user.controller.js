@@ -5,7 +5,6 @@ import { uploadOnCloudinary, deleteFromCloudinary, extractCloudinaryFileId } fro
 import { ApiResponse } from "../utils/ApiResponse.js"
 import jwt from "jsonwebtoken"
 import mongoose from "mongoose"
-import e from "cors"
 
 const generateAccessAndRefressTokens = async function (userId) {
     try {
@@ -346,6 +345,7 @@ const updateUserCoverImage = asyncHandler(async (req, res) => {
 
 const getUserChannelProfile = asyncHandler(async (req, res) => {
     const { username } = req.params
+    const userId = req.user?._id ? new mongoose.Types.ObjectId(req.user._id) : null
 
     if (!username?.trim()) {
         throw new ApiError(400, "Username is missing")
@@ -354,7 +354,8 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
     const channel = await User.aggregate([
         {
             $match: {
-                username: username?.toLowerCase()
+                // Case-insensitive search with trimmed username
+                username: { $regex: new RegExp(`^${username.trim()}$`, 'i') }
             }
         },
         {
@@ -375,15 +376,16 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
         },
         {
             $addFields: {
-                subscribersCount: {
-                    $size: "$subscribers"
-                },
-                subscribedToCount: {
-                    $size: "$subscribedTo"
-                },
+                subscribersCount: { $size: "$subscribers" },
+                subscribedToCount: { $size: "$subscribedTo" },
                 isSubscribed: {
                     $cond: {
-                        if: { $in: [req.user?._id, "$subscribers.subscriber"] },
+                        if: {
+                            $and: [
+                                { $ne: [userId, null] },
+                                { $in: [userId, "$subscribers.subscriber"] }
+                            ]
+                        },
                         then: true,
                         else: false
                     }
@@ -399,13 +401,12 @@ const getUserChannelProfile = asyncHandler(async (req, res) => {
                 isSubscribed: 1,
                 avatar: 1,
                 coverImage: 1,
-                email: 1
             }
         }
     ])
 
     if (!channel?.length) {
-        throw new ApiError(404, "Channel does not exists")
+        throw new ApiError(404, "Channel does not exist")
     }
 
     return res
